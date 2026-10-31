@@ -1,348 +1,373 @@
-E html>
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GOLD INTELLIGENCE</title>
+<title>GOLD INTELLIGENCE 2.0</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
+:root {
+ --bg:#090f1d; --panel:#121d30; --line:#26364d;
+ --gold:#f3c75e; --text:#f4f6fa; --muted:#9baac0;
+ --green:#31d49b; --red:#ff7272;
 }
-
-body {
-    background: #0b1020;
-    color: #fff;
-}
-
-header {
-    background: #111a2e;
-    padding: 22px 6%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #29334a;
-}
-
-.logo {
-    color: #f5c451;
-    font-size: 25px;
-    font-weight: bold;
-}
-
-nav a {
-    color: #ddd;
-    margin-left: 20px;
-    text-decoration: none;
-    font-size: 14px;
-}
-
-.container {
-    padding: 35px 6%;
-}
-
-h1 {
-    font-size: 30px;
-    margin-bottom: 10px;
-}
-
-.subtitle {
-    color: #8e9bb4;
-    margin-bottom: 30px;
-}
-
-.cards {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-}
-
-.card {
-    background: #151f35;
-    border: 1px solid #263653;
-    border-radius: 14px;
-    padding: 23px;
-}
-
-.card h3 {
-    color: #aab6cc;
-    font-size: 14px;
-    margin-bottom: 17px;
-}
-
-.price {
-    color: #f5c451;
-    font-size: 27px;
-    font-weight: bold;
-}
-
-.up {
-    color: #22c98a;
-    margin-top: 12px;
-}
-
-.down {
-    color: #ff6464;
-    margin-top: 12px;
-}
-
-.section {
-    margin-top: 35px;
-}
-
-.chart-box {
-    background: #151f35;
-    padding: 25px;
-    border-radius: 14px;
-    margin-top: 18px;
-    height: 350px;
-}
-
-.analysis {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    margin-top: 20px;
-}
-
-.analysis-item {
-    background: #151f35;
-    padding: 24px;
-    border-radius: 14px;
-    border: 1px solid #263653;
-}
-
-.analysis-item h3 {
-    color: #f5c451;
-    margin-bottom: 15px;
-}
-
-.analysis-item p {
-    color: #bdc8da;
-    line-height: 1.8;
-}
-
-.tag {
-    display: inline-block;
-    background: #243b35;
-    color: #22c98a;
-    padding: 7px 12px;
-    border-radius: 6px;
-    margin-top: 12px;
-}
-
-footer {
-    text-align: center;
-    padding: 30px;
-    color: #74819b;
-    border-top: 1px solid #263653;
-    margin-top: 45px;
-}
-
-@media(max-width: 750px) {
-    .cards, .analysis {
-        grid-template-columns: 1fr;
-    }
-
-    nav {
-        display: none;
-    }
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);
+ font-family:Arial,sans-serif}
+header{padding:20px 5%;background:#101a2c;
+ border-bottom:1px solid var(--line);
+ display:flex;justify-content:space-between;align-items:center;
+ flex-wrap:wrap;gap:15px}
+.logo{font-size:22px;font-weight:bold;color:var(--gold)}
+nav{display:flex;gap:18px;flex-wrap:wrap}
+a{color:var(--gold);text-decoration:none}
+nav a{color:#d6dfec;font-size:13px}
+.container{max-width:1250px;margin:auto;padding:30px 5%}
+h1{font-size:29px;margin-bottom:8px}
+.muted{color:var(--muted);font-size:13px}
+.status{padding:9px 13px;border-radius:8px;
+ background:#1c3040;color:var(--green);font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);
+ padding:21px;border-radius:13px;min-width:0}
+.card h3{font-size:13px;color:var(--muted);margin:0 0 15px}
+.price{font-size:25px;font-weight:bold;color:var(--gold);
+ overflow-wrap:anywhere}
+.small{font-size:12px;color:var(--muted);margin-top:10px}
+.section{margin-top:35px}
+.section h2{font-size:20px;margin-bottom:17px}
+.chart{height:330px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+button{background:var(--gold);border:0;padding:11px 16px;
+ border-radius:7px;font-weight:bold;cursor:pointer}
+.secondary{background:#24334b;color:white}
+.analysis{line-height:1.8;color:#c7d2e2}
+.news a{display:block;padding:14px 0;
+ border-bottom:1px solid var(--line)}
+footer{text-align:center;padding:25px;color:var(--muted);
+ border-top:1px solid var(--line);font-size:12px}
+@media(max-width:750px){
+ .grid{grid-template-columns:1fr}
+ header{align-items:flex-start;flex-direction:column}
+ .chart{height:260px}
+ h1{font-size:24px}
 }
 </style>
 </head>
-
 <body>
 
 <header>
-    <div class="logo">GOLD INTELLIGENCE</div>
-    <nav>
-        <a href="#">Trang chủ</a>
-        <a href="#market">Thị trường</a>
-        <a href="#chart">Biểu đồ</a>
-        <a href="#analysis">Phân tích</a>
-    </nav>
+ <div class="logo">◆ GOLD INTELLIGENCE</div>
+ <nav>
+  <a href="#market">THỊ TRƯỜNG</a>
+  <a href="#chart">BIỂU ĐỒ</a>
+  <a href="#analysis">PHÂN TÍCH</a>
+  <a href="#news">TIN TỨC</a>
+ </nav>
 </header>
 
-<div class="container">
+<main class="container">
 
-<h1>Trung tâm phân tích thị trường vàng</h1>
-<p class="subtitle">
-    Theo dõi biến động và đánh giá xu hướng thị trường vàng
-</p>
+ <h1>Gold Market Intelligence</h1>
+ <p class="muted">Trung tâm dữ liệu và phân tích thị trường vàng</p>
+ <div class="status" id="connection">● Đang kết nối dữ liệu...</div>
 
-<div class="cards" id="market">
+ <section class="section" id="market">
+  <h2>01 / Thị trường vàng</h2>
+  <div class="grid">
+   <div class="card">
+    <h3>VÀNG MIẾNG SJC</h3>
+    <div class="price" id="sjc">Đang tải...</div>
+    <div class="small" id="sjcDetail">Mua: -- | Bán: --</div>
+    <div class="small" id="sjcTime">Chưa có dữ liệu</div>
+   </div>
+   <div class="card">
+    <h3>VÀNG NHẪN SJC 9999</h3>
+    <div class="price" id="ring">Đang tải...</div>
+    <div class="small" id="ringDetail">Mua: -- | Bán: --</div>
+    <div class="small" id="ringTime">Chưa có dữ liệu</div>
+   </div>
+   <div class="card">
+    <h3>VÀNG THẾ GIỚI XAU/USD</h3>
+    <div class="price" id="world">Đang tải...</div>
+    <div class="small" id="worldDetail">USD / troy ounce</div>
+    <div class="small" id="worldTime">Chưa có dữ liệu</div>
+   </div>
+  </div>
+  <div class="actions">
+   <button onclick="refreshAll()">↻ Cập nhật dữ liệu</button>
+   <button class="secondary" onclick="loadHistory()">Tải lại biểu đồ</button>
+  </div>
+ </section>
 
-    <div class="card">
-        <h3>VÀNG SJC</h3>
-        <div class="price">120.000.000 đ</div>
-        <div class="up">▲ +0,85% (Dữ liệu mẫu)</div>
-    </div>
+ <section class="section" id="chart">
+  <h2>02 / Biểu đồ lịch sử XAU/USD</h2>
+  <div class="card chart">
+   <canvas id="goldChart"></canvas>
+  </div>
+  <p class="small" id="chartStatus">Đang tải lịch sử...</p>
+ </section>
 
-    <div class="card">
-        <h3>VÀNG NHẪN 9999</h3>
-        <div class="price">118.500.000 đ</div>
-        <div class="up">▲ +0,52% (Dữ liệu mẫu)</div>
-    </div>
+ <section class="section" id="analysis">
+  <h2>03 / Gold Intelligence Analysis</h2>
+  <div class="grid">
+   <div class="card">
+    <h3>ĐÁNH GIÁ XU HƯỚNG</h3>
+    <div class="price" id="trend">Đang phân tích</div>
+    <p class="analysis" id="trendText">
+     Cần dữ liệu lịch sử để đánh giá.
+    </p>
+   </div>
+   <div class="card">
+    <h3>BIÊN ĐỘ BIẾN ĐỘNG</h3>
+    <div class="price" id="volatility">--</div>
+    <p class="analysis">Chênh lệch giữa mức cao nhất và thấp nhất
+     trong chuỗi dữ liệu đang hiển thị.</p>
+   </div>
+   <div class="card">
+    <h3>ĐÁNH GIÁ ĐỘ TIN CẬY</h3>
+    <div class="price" id="confidence">Chờ dữ liệu</div>
+    <p class="analysis" id="confidenceText">
+     Chưa đủ dữ liệu để đánh giá.
+    </p>
+   </div>
+  </div>
+  <p class="small">
+   Đây là phân tích tự động theo quy tắc thống kê,
+   không phải dự báo chắc chắn hoặc lời khuyên đầu tư.
+  </p>
+ </section>
 
-    <div class="card">
-        <h3>VÀNG THẾ GIỚI</h3>
-        <div class="price">$3.950 / oz</div>
-        <div class="down">▼ -0,25% (Dữ liệu mẫu)</div>
-    </div>
+ <section class="section" id="news">
+  <h2>04 / Economic News Center</h2>
+  <div class="card news">
+   <a href="https://www.gold.org/goldhub" target="_blank">
+    World Gold Council - Dữ liệu và nghiên cứu vàng ↗
+   </a>
+   <a href="https://www.federalreserve.gov/newsevents.htm"
+    target="_blank">
+    Federal Reserve - Chính sách tiền tệ ↗
+   </a>
+   <a href="https://www.reuters.com/markets/commodities/"
+    target="_blank">
+    Reuters - Tin tức thị trường hàng hóa ↗
+   </a>
+   <a href="https://www.sjc.com.vn/" target="_blank">
+    SJC - Trang thông tin chính thức ↗
+   </a>
+  </div>
+ </section>
 
-</div>
+ <section class="section">
+  <div class="card">
+   <h3>THÔNG TIN HỆ THỐNG</h3>
+   <p class="analysis" id="systemInfo">
+    Hệ thống đang khởi động...
+   </p>
+   <p class="small">
+    Dữ liệu tham khảo. Giá có thể có độ trễ.
+    Hãy đối chiếu nguồn công bố trước khi sử dụng.
+   </p>
+  </div>
+ </section>
 
-<div class="section" id="chart">
-    <h2>📈 Biểu đồ biến động giá vàng</h2>
-
-    <div class="chart-box">
-        <canvas id="goldChart"></canvas>
-    </div>
-</div>
-
-<div class="section" id="analysis">
-    <h2>🧠 Đánh giá thị trường</h2>
-
-    <div class="analysis">
-
-        <div class="analysis-item">
-            <h3>Xu hướng thị trường</h3>
-            <p>
-                Theo dữ liệu minh họa, giá vàng đang có
-                biến động tăng nhẹ. Cần theo dõi thêm
-                khối lượng giao dịch và diễn biến quốc tế.
-            </p>
-            <span class="tag">Minh họa: Tăng nhẹ</span>
-        </div>
-
-        <div class="analysis-item">
-            <h3>Các yếu tố tác động</h3>
-            <p>
-                1. Lãi suất ngân hàng trung ương.<br>
-                2. Sức mạnh đồng USD.<br>
-                3. Lạm phát toàn cầu.<br>
-                4. Nhu cầu vàng vật chất.<br>
-                5. Tình hình kinh tế và địa chính trị.
-            </p>
-        </div>
-
-        <div class="analysis-item">
-            <h3>Rủi ro thị trường</h3>
-            <p>
-                Giá vàng có thể biến động mạnh khi xuất hiện
-                thông tin kinh tế hoặc chính sách tiền tệ mới.
-                Chênh lệch giá mua và bán cũng cần được chú ý.
-            </p>
-        </div>
-
-        <div class="analysis-item">
-            <h3>Đánh giá dữ liệu</h3>
-            <p>
-                Các mức giá trên chỉ là dữ liệu mẫu để thử
-                nghiệm giao diện. Chưa kết nối dữ liệu thị trường
-                theo thời gian thực.
-            </p>
-        </div>
-
-    </div>
-</div>
-
-</div>
+</main>
 
 <footer>
-    GOLD INTELLIGENCE © 2026
-    <br><br>
-    Nền tảng thông tin và phân tích thị trường vàng.
-    Không phải công cụ tư vấn đầu tư.
+ GOLD INTELLIGENCE 2.0 © 2026<br><br>
+ Independent Gold Market Information Platform
 </footer>
 
 <script>
-const ctx = document.getElementById('goldChart');
+const API_VN = "https://giavang.now/api/prices";
+const API_WORLD = "https://xaus.com/api/v1/spot";
+const API_HISTORY = "https://xaus.com/api/v1/history";
 
-new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: [
-            'Thứ 2', 'Thứ 3', 'Thứ 4',
-            'Thứ 5', 'Thứ 6', 'Thứ 7', 'Chủ nhật'
-        ],
-        datasets: [{
-            label: 'Giá vàng minh họa',
-            data: [115, 116, 114, 117, 118, 119, 120],
-            borderColor: '#f5c451',
-            backgroundColor: 'rgba(245,196,81,0.12)',
-            borderWidth: 3,
-            fill: true,
-            tension: 0.4
-        }]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            legend: {
-                labels: { color: '#ffffff' }
-            }
-        },
-        scales: {
-            x: {
-                ticks: { color: '#aab6cc' },
-                grid: { color: '#263653' }
-            },
-            y: {
-                ticks: { color: '#aab6cc' },
-                grid: { color: '#263653' }
-            }
-        }
+const money = n => Number(n).toLocaleString("vi-VN") + " đ";
+const usd = n => "$" + Number(n).toLocaleString("en-US",
+ {minimumFractionDigits:2,maximumFractionDigits:2});
+
+function showError(id, message="Không tải được dữ liệu") {
+ document.getElementById(id).textContent = message;
+}
+
+async function getJSON(url) {
+ const response = await fetch(url);
+ if(!response.ok) throw new Error("HTTP " + response.status);
+ return response.json();
+}
+
+function findGold(data, codes) {
+ const rows = Array.isArray(data) ? data :
+  (Array.isArray(data.data) ? data.data : []);
+ return rows.find(x => codes.includes(
+  x.type_code || x.code || x.type
+ ));
+}
+
+function displayDomestic(item, prefix, timeId) {
+ if(!item) {
+  showError(prefix,"Không có dữ liệu");
+  return;
+ }
+ document.getElementById(prefix).textContent =
+  money(item.sell);
+ document.getElementById(prefix+"Detail").textContent =
+  "Mua: "+money(item.buy)+" | Bán: "+money(item.sell);
+ const time = item.update_time
+  ? new Date(Number(item.update_time)*1000)
+  : null;
+ document.getElementById(timeId).textContent =
+  time && !isNaN(time) ? "Cập nhật: "+time.toLocaleString("vi-VN")
+  : "Thời gian cập nhật chưa được cung cấp";
+}
+
+async function loadDomestic() {
+ const data = await getJSON(API_VN);
+ if(data.success === false) throw new Error("API báo lỗi");
+ const sjc = findGold(data,["SJL1L10"]);
+ const ring = findGold(data,["SJ9999"]);
+ displayDomestic(sjc,"sjc","sjcTime");
+ displayDomestic(ring,"ring","ringTime");
+ return true;
+}
+
+async function loadWorld() {
+ const data = await getJSON(API_WORLD);
+ const price = Number(data.spot_usd_oz);
+ if(!Number.isFinite(price) || price<=0)
+  throw new Error("Giá vàng thế giới không hợp lệ");
+
+ document.getElementById("world").textContent=usd(price);
+ document.getElementById("worldTime").textContent=
+  "Nguồn: "+(data.source || "XAUS")+
+  " | "+new Date(data.price_as_of || data.updated_at)
+   .toLocaleString("vi-VN");
+ document.getElementById("worldDetail").textContent=
+  "USD / troy ounce | "+(data.data_state?.status || "Chưa rõ trạng thái");
+ return price;
+}
+
+let chart;
+
+async function loadHistory() {
+ try {
+  const data = await getJSON(API_HISTORY);
+  if(!Array.isArray(data.points) || data.points.length<2)
+   throw new Error("Chưa đủ dữ liệu lịch sử");
+
+  const points=data.points;
+  const labels=points.map(p=>p.d);
+  const values=points.map(p=>Number(p.c));
+
+  if(values.some(v=>!Number.isFinite(v)))
+   throw new Error("Dữ liệu biểu đồ không hợp lệ");
+
+  if(chart) chart.destroy();
+  chart=new Chart(document.getElementById("goldChart"),{
+   type:"line",
+   data:{
+    labels,
+    datasets:[{
+     label:"XAU/USD - USD/oz",
+     data:values,
+     borderColor:"#f3c75e",
+     backgroundColor:"rgba(243,199,94,.12)",
+     borderWidth:2,
+     fill:true,
+     tension:.25,
+     pointRadius:0
+    }]
+   },
+   options:{
+    responsive:true,
+    maintainAspectRatio:false,
+    plugins:{legend:{labels:{color:"#fff"}}},
+    scales:{
+     x:{ticks:{color:"#9baac0",maxTicksLimit:8},
+       grid:{color:"#26364d"}},
+     y:{ticks:{color:"#9baac0"},
+       grid:{color:"#26364d"}}
     }
-});
-</script>
+   }
+  });
 
+  analyse(values);
+  document.getElementById("chartStatus").textContent=
+   "Nguồn XAUS | "+points.length+
+   " điểm dữ liệu | Lịch sử theo ngày";
+ } catch(e) {
+  document.getElementById("chartStatus").textContent=
+   "Không tải được lịch sử: "+e.message;
+  document.getElementById("confidence").textContent="Chưa đủ dữ liệu";
+ }
+}
+
+function analyse(values) {
+ const recent=values.slice(-7);
+ const first=recent[0], last=recent[recent.length-1];
+ const change=((last-first)/first)*100;
+ const high=Math.max(...values);
+ const low=Math.min(...values);
+ const range=((high-low)/low)*100;
+
+ let trend="Đi ngang";
+ let explanation="Giá chưa thể hiện xu hướng rõ ràng.";
+
+ if(change>0.5) {
+  trend="Tăng";
+  explanation="Giá trong nhóm quan sát gần nhất đang tăng.";
+ } else if(change< -0.5) {
+  trend="Giảm";
+  explanation="Giá trong nhóm quan sát gần nhất đang giảm.";
+ }
+
+ document.getElementById("trend").textContent=trend;
+ document.getElementById("trendText").textContent=
+  explanation+" Biến động 7 điểm gần nhất: "+
+  change.toFixed(2)+"%.";
+
+ document.getElementById("volatility").textContent=
+  range.toFixed(2)+"%";
+
+ document.getElementById("confidence").textContent=
+  values.length>=20 ? "Đủ dữ liệu cơ bản" : "Dữ liệu hạn chế";
+ document.getElementById("confidenceText").textContent=
+  "Có "+values.length+" điểm lịch sử. "+
+  "Đây không phải xác suất dự báo đúng.";
+}
+
+async function refreshAll() {
+ const status=document.getElementById("connection");
+ status.textContent="● Đang cập nhật...";
+ let success=0;
+
+ try { await loadDomestic(); success++; }
+ catch(e) {
+  showError("sjc","Không có dữ liệu");
+  showError("ring","Không có dữ liệu");
+  console.error("Domestic API:",e);
+ }
+
+ try { await loadWorld(); success++; }
+ catch(e) {
+  showError("world","Không có dữ liệu");
+  console.error("World API:",e);
+ }
+
+ status.textContent=success===2
+  ? "● Đã kết nối các nguồn dữ liệu"
+  : "● Một số nguồn dữ liệu đang lỗi";
+
+ document.getElementById("systemInfo").textContent=
+  "Lần kiểm tra: "+new Date().toLocaleString("vi-VN")+
+  ". Số nguồn tải thành công: "+success+"/2.";
+}
+
+refreshAll();
+loadHistory();
+setInterval(refreshAll,300000);
+</script>
 </body>
 </html>
-
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My HTML Page</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      max-width: 700px;
-      margin: 40px auto;
-      padding: 0 20px;
-      color: #2d3748;
-    }
-    h1 { color: #2b6cb0; }
-    .box {
-      background: #ebf8ff;
-      border-left: 4px solid #3182ce;
-      padding: 16px 20px;
-      border-radius: 4px;
-      margin: 20px 0;
-    }
-    button {
-      background: #3182ce;
-      color: white;
-      border: none;
-      padding: 10px 24px;
-      border-radius: 6px;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-    button:hover { background: #2c5282; }
-  </style>
-</head>
-<body>
-  <h1>👋 Welcome to HTML Editor</h1>
-  <p>Edit the HTML on the left — click <strong>Run</strong> to see results here.</p>
-  <div class="box">
-    <strong>💡 Tip:</strong> Press <code>Ctrl+Enter</code> to run quickly.
-  </div>
-  <button onclick="alert('Hel
