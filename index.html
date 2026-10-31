@@ -3,180 +3,273 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GOLD INTELLIGENCE 2.0</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#090f1d">
+<title>GOLD INTELLIGENCE 3.0</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <style>
 :root {
- --bg:#090f1d; --panel:#121d30; --line:#26364d;
- --gold:#f3c75e; --text:#f4f6fa; --muted:#9baac0;
- --green:#31d49b; --red:#ff7272;
+  --bg:#080e1b;
+  --panel:#111b2d;
+  --panel2:#17243a;
+  --line:#263750;
+  --gold:#f3c75e;
+  --text:#f4f6fa;
+  --muted:#9baac0;
+  --green:#35d6a0;
+  --red:#ff7474;
 }
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);
- font-family:Arial,sans-serif}
-header{padding:20px 5%;background:#101a2c;
- border-bottom:1px solid var(--line);
- display:flex;justify-content:space-between;align-items:center;
- flex-wrap:wrap;gap:15px}
-.logo{font-size:22px;font-weight:bold;color:var(--gold)}
-nav{display:flex;gap:18px;flex-wrap:wrap}
-a{color:var(--gold);text-decoration:none}
-nav a{color:#d6dfec;font-size:13px}
-.container{max-width:1250px;margin:auto;padding:30px 5%}
-h1{font-size:29px;margin-bottom:8px}
-.muted{color:var(--muted);font-size:13px}
-.status{padding:9px 13px;border-radius:8px;
- background:#1c3040;color:var(--green);font-size:12px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.card{background:var(--panel);border:1px solid var(--line);
- padding:21px;border-radius:13px;min-width:0}
-.card h3{font-size:13px;color:var(--muted);margin:0 0 15px}
-.price{font-size:25px;font-weight:bold;color:var(--gold);
- overflow-wrap:anywhere}
-.small{font-size:12px;color:var(--muted);margin-top:10px}
-.section{margin-top:35px}
-.section h2{font-size:20px;margin-bottom:17px}
-.chart{height:330px}
-.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
-button{background:var(--gold);border:0;padding:11px 16px;
- border-radius:7px;font-weight:bold;cursor:pointer}
-.secondary{background:#24334b;color:white}
-.analysis{line-height:1.8;color:#c7d2e2}
-.news a{display:block;padding:14px 0;
- border-bottom:1px solid var(--line)}
-footer{text-align:center;padding:25px;color:var(--muted);
- border-top:1px solid var(--line);font-size:12px}
-@media(max-width:750px){
- .grid{grid-template-columns:1fr}
- header{align-items:flex-start;flex-direction:column}
- .chart{height:260px}
- h1{font-size:24px}
+* {box-sizing:border-box}
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,sans-serif;
+}
+header {
+  position:sticky;
+  top:0;
+  z-index:10;
+  background:#0e1829ee;
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+  padding:17px 5%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  flex-wrap:wrap;
+}
+.logo {
+  color:var(--gold);
+  font-size:21px;
+  font-weight:800;
+  letter-spacing:1px;
+}
+nav {display:flex;gap:18px;flex-wrap:wrap}
+nav a {
+  color:#d5dfed;
+  text-decoration:none;
+  font-size:12px;
+}
+nav a:hover {color:var(--gold)}
+.container {max-width:1250px;margin:auto;padding:30px 5%}
+.hero {
+  padding:25px 0 20px;
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  align-items:flex-end;
+  flex-wrap:wrap;
+}
+h1 {font-size:32px;margin:0 0 10px}
+h2 {font-size:20px;margin:0 0 18px}
+h3 {font-size:13px;color:var(--muted);margin:0 0 17px}
+.muted,.small {color:var(--muted);font-size:12px}
+.status {
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:30px;
+  padding:10px 15px;
+  font-size:12px;
+  color:var(--muted);
+}
+.section {margin-top:34px}
+.grid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:16px;
+}
+.card {
+  background:linear-gradient(145deg,var(--panel),#0e1727);
+  border:1px solid var(--line);
+  padding:21px;
+  border-radius:15px;
+  min-width:0;
+}
+.card:hover {border-color:#77633a}
+.price {
+  color:var(--gold);
+  font-size:27px;
+  font-weight:800;
+  overflow-wrap:anywhere;
+}
+.detail {margin-top:12px;font-size:12px;color:#d1dbea}
+.small {margin-top:10px;line-height:1.6}
+.change {margin-top:10px;font-size:12px}
+.up {color:var(--green)}
+.down {color:var(--red)}
+.neutral {color:var(--muted)}
+.chart-card {height:350px}
+.actions {display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+button {
+  cursor:pointer;
+  border:0;
+  border-radius:8px;
+  background:var(--gold);
+  color:#171717;
+  font-weight:bold;
+  padding:11px 17px;
+}
+button.secondary {
+  background:var(--panel2);
+  border:1px solid var(--line);
+  color:white;
+}
+button:disabled {opacity:.5;cursor:wait}
+.analysis {
+  color:#c9d5e5;
+  line-height:1.8;
+  font-size:13px;
+}
+.news a {
+  display:block;
+  padding:15px 0;
+  color:var(--gold);
+  text-decoration:none;
+  border-bottom:1px solid var(--line);
+}
+.news a:last-child {border:0}
+.footer {
+  text-align:center;
+  border-top:1px solid var(--line);
+  padding:25px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.8;
+}
+.notice {
+  border-left:3px solid var(--gold);
+  padding:12px 15px;
+  background:#17243a;
+  border-radius:5px;
+  color:#cbd5e1;
+  font-size:12px;
+  line-height:1.7;
+}
+@media(max-width:800px) {
+  .grid {grid-template-columns:1fr}
+  header {position:relative}
+  h1 {font-size:25px}
+  .chart-card {height:280px}
+  .hero {align-items:flex-start}
 }
 </style>
 </head>
-<body>
 
+<body>
 <header>
- <div class="logo">◆ GOLD INTELLIGENCE</div>
- <nav>
-  <a href="#market">THỊ TRƯỜNG</a>
-  <a href="#chart">BIỂU ĐỒ</a>
-  <a href="#analysis">PHÂN TÍCH</a>
-  <a href="#news">TIN TỨC</a>
- </nav>
+  <div class="logo">◆ GOLD INTELLIGENCE</div>
+  <nav>
+    <a href="#market">THỊ TRƯỜNG</a>
+    <a href="#chart">BIỂU ĐỒ</a>
+    <a href="#analysis">PHÂN TÍCH</a>
+    <a href="#news">TIN TỨC</a>
+  </nav>
 </header>
 
 <main class="container">
 
- <h1>Gold Market Intelligence</h1>
- <p class="muted">Trung tâm dữ liệu và phân tích thị trường vàng</p>
- <div class="status" id="connection">● Đang kết nối dữ liệu...</div>
+<section class="hero">
+  <div>
+    <p class="muted">GOLD MARKET INFORMATION PLATFORM / 2026</p>
+    <h1>Gold Market Intelligence</h1>
+    <p class="muted">Trung tâm dữ liệu và phân tích thị trường vàng</p>
+  </div>
+  <div class="status" id="connection">● Đang kết nối...</div>
+</section>
 
- <section class="section" id="market">
+<section class="section" id="market">
   <h2>01 / Thị trường vàng</h2>
   <div class="grid">
-   <div class="card">
-    <h3>VÀNG MIẾNG SJC</h3>
-    <div class="price" id="sjc">Đang tải...</div>
-    <div class="small" id="sjcDetail">Mua: -- | Bán: --</div>
-    <div class="small" id="sjcTime">Chưa có dữ liệu</div>
-   </div>
-   <div class="card">
-    <h3>VÀNG NHẪN SJC 9999</h3>
-    <div class="price" id="ring">Đang tải...</div>
-    <div class="small" id="ringDetail">Mua: -- | Bán: --</div>
-    <div class="small" id="ringTime">Chưa có dữ liệu</div>
-   </div>
-   <div class="card">
-    <h3>VÀNG THẾ GIỚI XAU/USD</h3>
-    <div class="price" id="world">Đang tải...</div>
-    <div class="small" id="worldDetail">USD / troy ounce</div>
-    <div class="small" id="worldTime">Chưa có dữ liệu</div>
-   </div>
-  </div>
-  <div class="actions">
-   <button onclick="refreshAll()">↻ Cập nhật dữ liệu</button>
-   <button class="secondary" onclick="loadHistory()">Tải lại biểu đồ</button>
-  </div>
- </section>
 
- <section class="section" id="chart">
+    <div class="card">
+      <h3>VÀNG MIẾNG SJC</h3>
+      <div class="price" id="sjc">--</div>
+      <div class="detail" id="sjcDetail">Mua: -- | Bán: --</div>
+      <div class="change" id="sjcChange">Chưa có dữ liệu</div>
+      <div class="small" id="sjcTime">Đang chờ dữ liệu</div>
+    </div>
+
+    <div class="card">
+      <h3>VÀNG NHẪN SJC 9999</h3>
+      <div class="price" id="ring">--</div>
+      <div class="detail" id="ringDetail">Mua: -- | Bán: --</div>
+      <div class="change" id="ringChange">Chưa có dữ liệu</div>
+      <div class="small" id="ringTime">Đang chờ dữ liệu</div>
+    </div>
+
+    <div class="card">
+      <h3>VÀNG THẾ GIỚI XAU/USD</h3>
+      <div class="price" id="world">--</div>
+      <div class="detail" id="worldDetail">USD / troy ounce</div>
+      <div class="change" id="worldChange">Chưa có dữ liệu</div>
+      <div class="small" id="worldTime">Đang chờ dữ liệu</div>
+    </div>
+
+  </div>
+
+  <div class="actions">
+    <button id="refreshBtn" onclick="refreshAll()">↻ Cập nhật dữ liệu</button>
+    <button class="secondary" onclick="loadHistory()">Tải lại biểu đồ</button>
+  </div>
+</section>
+
+<section class="section" id="chart">
   <h2>02 / Biểu đồ lịch sử XAU/USD</h2>
-  <div class="card chart">
-   <canvas id="goldChart"></canvas>
+  <div class="card chart-card">
+    <canvas id="goldChart"></canvas>
   </div>
   <p class="small" id="chartStatus">Đang tải lịch sử...</p>
- </section>
+</section>
 
- <section class="section" id="analysis">
+<section class="section" id="analysis">
   <h2>03 / Gold Intelligence Analysis</h2>
   <div class="grid">
-   <div class="card">
-    <h3>ĐÁNH GIÁ XU HƯỚNG</h3>
-    <div class="price" id="trend">Đang phân tích</div>
-    <p class="analysis" id="trendText">
-     Cần dữ liệu lịch sử để đánh giá.
-    </p>
-   </div>
-   <div class="card">
-    <h3>BIÊN ĐỘ BIẾN ĐỘNG</h3>
-    <div class="price" id="volatility">--</div>
-    <p class="analysis">Chênh lệch giữa mức cao nhất và thấp nhất
-     trong chuỗi dữ liệu đang hiển thị.</p>
-   </div>
-   <div class="card">
-    <h3>ĐÁNH GIÁ ĐỘ TIN CẬY</h3>
-    <div class="price" id="confidence">Chờ dữ liệu</div>
-    <p class="analysis" id="confidenceText">
-     Chưa đủ dữ liệu để đánh giá.
-    </p>
-   </div>
+    <div class="card">
+      <h3>ĐÁNH GIÁ XU HƯỚNG</h3>
+      <div class="price" id="trend">--</div>
+      <p class="analysis" id="trendText">Chờ dữ liệu lịch sử.</p>
+    </div>
+    <div class="card">
+      <h3>BIÊN ĐỘ BIẾN ĐỘNG</h3>
+      <div class="price" id="volatility">--</div>
+      <p class="analysis">Biên độ từ mức thấp nhất đến cao nhất trong chuỗi dữ liệu.</p>
+    </div>
+    <div class="card">
+      <h3>ĐỘ ĐẦY ĐỦ DỮ LIỆU</h3>
+      <div class="price" id="confidence">--</div>
+      <p class="analysis" id="confidenceText">Chưa có dữ liệu để đánh giá.</p>
+    </div>
   </div>
-  <p class="small">
-   Đây là phân tích tự động theo quy tắc thống kê,
-   không phải dự báo chắc chắn hoặc lời khuyên đầu tư.
-  </p>
- </section>
+  <p class="small">Phân tích thống kê tham khảo, không phải dự báo chắc chắn hoặc lời khuyên đầu tư.</p>
+</section>
 
- <section class="section" id="news">
+<section class="section" id="news">
   <h2>04 / Economic News Center</h2>
   <div class="card news">
-   <a href="https://www.gold.org/goldhub" target="_blank">
-    World Gold Council - Dữ liệu và nghiên cứu vàng ↗
-   </a>
-   <a href="https://www.federalreserve.gov/newsevents.htm"
-    target="_blank">
-    Federal Reserve - Chính sách tiền tệ ↗
-   </a>
-   <a href="https://www.reuters.com/markets/commodities/"
-    target="_blank">
-    Reuters - Tin tức thị trường hàng hóa ↗
-   </a>
-   <a href="https://www.sjc.com.vn/" target="_blank">
-    SJC - Trang thông tin chính thức ↗
-   </a>
+    <a href="https://www.gold.org/goldhub" target="_blank" rel="noopener">World Gold Council ↗</a>
+    <a href="https://www.federalreserve.gov/newsevents.htm" target="_blank" rel="noopener">Federal Reserve ↗</a>
+    <a href="https://www.reuters.com/markets/commodities/" target="_blank" rel="noopener">Reuters Commodities ↗</a>
+    <a href="https://www.sjc.com.vn/" target="_blank" rel="noopener">SJC Việt Nam ↗</a>
   </div>
- </section>
+</section>
 
- <section class="section">
-  <div class="card">
-   <h3>THÔNG TIN HỆ THỐNG</h3>
-   <p class="analysis" id="systemInfo">
-    Hệ thống đang khởi động...
-   </p>
-   <p class="small">
-    Dữ liệu tham khảo. Giá có thể có độ trễ.
-    Hãy đối chiếu nguồn công bố trước khi sử dụng.
-   </p>
+<section class="section">
+  <div class="notice">
+    <strong>Thông tin hệ thống</strong>
+    <p id="systemInfo">Đang khởi động...</p>
+    Giá có thể có độ trễ hoặc sai khác giữa các nhà cung cấp.
+    Hãy kiểm tra nguồn công bố trước khi sử dụng.
   </div>
- </section>
+</section>
 
 </main>
 
-<footer>
- GOLD INTELLIGENCE 2.0 © 2026<br><br>
- Independent Gold Market Information Platform
+<footer class="footer">
+  GOLD INTELLIGENCE 3.0 © 2026<br>
+  Independent Gold Market Information Platform
 </footer>
 
 <script>
@@ -184,190 +277,329 @@ const API_VN = "https://giavang.now/api/prices";
 const API_WORLD = "https://xaus.com/api/v1/spot";
 const API_HISTORY = "https://xaus.com/api/v1/history";
 
-const money = n => Number(n).toLocaleString("vi-VN") + " đ";
-const usd = n => "$" + Number(n).toLocaleString("en-US",
- {minimumFractionDigits:2,maximumFractionDigits:2});
+const $ = id => document.getElementById(id);
 
-function showError(id, message="Không tải được dữ liệu") {
- document.getElementById(id).textContent = message;
+function numberValue(value) {
+  if (typeof value === "number") return value;
+  if (typeof value !== "string") return NaN;
+
+  let s = value.trim().replace(/\s/g, "");
+
+  // Chuỗi kiểu Việt Nam: 139.000.000
+  if (/^-?\d{1,3}(\.\d{3})+$/.test(s)) {
+    s = s.replace(/\./g, "");
+  } else if (s.includes(",") && s.includes(".")) {
+    s = s.replace(/\./g, "").replace(",", ".");
+  } else if (s.includes(",")) {
+    s = s.replace(",", ".");
+  }
+
+  return Number(s);
+}
+
+function money(value) {
+  const n = numberValue(value);
+  return Number.isFinite(n)
+    ? n.toLocaleString("vi-VN") + " đ"
+    : "--";
+}
+
+function usd(value) {
+  const n = numberValue(value);
+  return Number.isFinite(n)
+    ? "$" + n.toLocaleString("en-US", {
+        minimumFractionDigits:2,
+        maximumFractionDigits:2
+      })
+    : "--";
 }
 
 async function getJSON(url) {
- const response = await fetch(url);
- if(!response.ok) throw new Error("HTTP " + response.status);
- return response.json();
+  const response = await fetch(url, {cache:"no-store"});
+  if (!response.ok) throw new Error("HTTP " + response.status);
+  return await response.json();
 }
 
-function findGold(data, codes) {
- const rows = Array.isArray(data) ? data :
-  (Array.isArray(data.data) ? data.data : []);
- return rows.find(x => codes.includes(
-  x.type_code || x.code || x.type
- ));
+function getDomesticRows(data) {
+  // API đã cung cấp: {"giá cả": {"SJ9999": {...}}}
+  if (data && data["giá cả"] && typeof data["giá cả"] === "object") {
+    return data["giá cả"];
+  }
+
+  // Hỗ trợ thêm cấu trúc API dạng khác
+  if (data && data.prices && typeof data.prices === "object") {
+    return data.prices;
+  }
+
+  if (data && Array.isArray(data.data)) {
+    return data.data;
+  }
+
+  if (Array.isArray(data)) return data;
+
+  return null;
 }
 
-function displayDomestic(item, prefix, timeId) {
- if(!item) {
-  showError(prefix,"Không có dữ liệu");
-  return;
- }
- document.getElementById(prefix).textContent =
-  money(item.sell);
- document.getElementById(prefix+"Detail").textContent =
-  "Mua: "+money(item.buy)+" | Bán: "+money(item.sell);
- const time = item.update_time
-  ? new Date(Number(item.update_time)*1000)
-  : null;
- document.getElementById(timeId).textContent =
-  time && !isNaN(time) ? "Cập nhật: "+time.toLocaleString("vi-VN")
-  : "Thời gian cập nhật chưa được cung cấp";
+function findGold(rows, code) {
+  if (!rows) return null;
+
+  if (Array.isArray(rows)) {
+    return rows.find(item =>
+      [item.type_code,item.code,item.type].includes(code)
+    ) || null;
+  }
+
+  return rows[code] || null;
+}
+
+function readGold(item, timestamp) {
+  if (!item) return null;
+
+  const buy = numberValue(item["Mua"] ?? item.buy);
+  const sell = numberValue(item["bán"] ?? item["Bán"] ?? item.sell);
+
+  if (!Number.isFinite(buy) || !Number.isFinite(sell)) return null;
+
+  return {
+    buy,
+    sell,
+    changeBuy: numberValue(item.change_buy),
+    changeSell: numberValue(item.change_sell),
+    timestamp: item.update_time || timestamp
+  };
+}
+
+function showChange(id, value) {
+  const el = $(id);
+  if (!el || !Number.isFinite(value)) {
+    if (el) el.textContent = "Chưa có thông tin thay đổi";
+    return;
+  }
+
+  el.className = "change " +
+    (value > 0 ? "up" : value < 0 ? "down" : "neutral");
+
+  const sign = value > 0 ? "+" : "";
+  el.textContent = "Thay đổi giá mua: " + sign + money(value);
+}
+
+function displayDomestic(item, prefix) {
+  if (!item) {
+    $(prefix).textContent = "Không có dữ liệu";
+    $(prefix+"Detail").textContent = "Mua: -- | Bán: --";
+    $(prefix+"Time").textContent = "Nguồn chưa cung cấp dữ liệu hợp lệ";
+    $(prefix+"Change").textContent = "Chưa có thông tin thay đổi";
+    return false;
+  }
+
+  $(prefix).textContent = money(item.sell);
+  $(prefix+"Detail").textContent =
+    "Mua: " + money(item.buy) + " | Bán: " + money(item.sell);
+
+  const date = item.timestamp
+    ? new Date(Number(item.timestamp) * 1000)
+    : null;
+
+  $(prefix+"Time").textContent =
+    date && !isNaN(date.getTime())
+      ? "Cập nhật: " + date.toLocaleString("vi-VN")
+      : "Thời gian cập nhật chưa được cung cấp";
+
+  showChange(prefix+"Change", item.changeBuy);
+  return true;
 }
 
 async function loadDomestic() {
- const data = await getJSON(API_VN);
- if(data.success === false) throw new Error("API báo lỗi");
- const sjc = findGold(data,["SJL1L10"]);
- const ring = findGold(data,["SJ9999"]);
- displayDomestic(sjc,"sjc","sjcTime");
- displayDomestic(ring,"ring","ringTime");
- return true;
+  const data = await getJSON(API_VN);
+  const rows = getDomesticRows(data);
+
+  if (!rows) throw new Error("Không nhận diện được cấu trúc API trong nước");
+
+  const timestamp = data["Dấu thời gian"] || data.timestamp;
+
+  const sjc = readGold(findGold(rows, "SJL1L10"), timestamp);
+  const ring = readGold(findGold(rows, "SJ9999"), timestamp);
+
+  const sjcOK = displayDomestic(sjc, "sjc");
+  const ringOK = displayDomestic(ring, "ring");
+
+  if (!sjcOK && !ringOK) {
+    throw new Error("Không có giá SJC hoặc vàng nhẫn hợp lệ");
+  }
+
+  return sjcOK || ringOK;
 }
 
 async function loadWorld() {
- const data = await getJSON(API_WORLD);
- const price = Number(data.spot_usd_oz);
- if(!Number.isFinite(price) || price<=0)
-  throw new Error("Giá vàng thế giới không hợp lệ");
+  const data = await getJSON(API_WORLD);
+  const price = numberValue(data.spot_usd_oz);
 
- document.getElementById("world").textContent=usd(price);
- document.getElementById("worldTime").textContent=
-  "Nguồn: "+(data.source || "XAUS")+
-  " | "+new Date(data.price_as_of || data.updated_at)
-   .toLocaleString("vi-VN");
- document.getElementById("worldDetail").textContent=
-  "USD / troy ounce | "+(data.data_state?.status || "Chưa rõ trạng thái");
- return price;
+  if (!Number.isFinite(price) || price <= 0) {
+    throw new Error("Giá XAU/USD không hợp lệ");
+  }
+
+  $("world").textContent = usd(price);
+  $("worldDetail").textContent = "USD / troy ounce";
+
+  const dateText = data.price_as_of || data.updated_at;
+  const date = dateText ? new Date(dateText) : null;
+
+  $("worldTime").textContent =
+    date && !isNaN(date.getTime())
+      ? "Nguồn: XAUS | " + date.toLocaleString("vi-VN")
+      : "Nguồn: XAUS | Thời gian chưa rõ";
+
+  $("worldChange").textContent =
+    "Trạng thái: " + (data.data_state?.status || "Chưa xác định");
+
+  return price;
 }
 
-let chart;
+let chart = null;
 
 async function loadHistory() {
- try {
-  const data = await getJSON(API_HISTORY);
-  if(!Array.isArray(data.points) || data.points.length<2)
-   throw new Error("Chưa đủ dữ liệu lịch sử");
+  try {
+    const data = await getJSON(API_HISTORY);
 
-  const points=data.points;
-  const labels=points.map(p=>p.d);
-  const values=points.map(p=>Number(p.c));
-
-  if(values.some(v=>!Number.isFinite(v)))
-   throw new Error("Dữ liệu biểu đồ không hợp lệ");
-
-  if(chart) chart.destroy();
-  chart=new Chart(document.getElementById("goldChart"),{
-   type:"line",
-   data:{
-    labels,
-    datasets:[{
-     label:"XAU/USD - USD/oz",
-     data:values,
-     borderColor:"#f3c75e",
-     backgroundColor:"rgba(243,199,94,.12)",
-     borderWidth:2,
-     fill:true,
-     tension:.25,
-     pointRadius:0
-    }]
-   },
-   options:{
-    responsive:true,
-    maintainAspectRatio:false,
-    plugins:{legend:{labels:{color:"#fff"}}},
-    scales:{
-     x:{ticks:{color:"#9baac0",maxTicksLimit:8},
-       grid:{color:"#26364d"}},
-     y:{ticks:{color:"#9baac0"},
-       grid:{color:"#26364d"}}
+    if (!Array.isArray(data.points) || data.points.length < 2) {
+      throw new Error("Chưa đủ dữ liệu lịch sử");
     }
-   }
-  });
 
-  analyse(values);
-  document.getElementById("chartStatus").textContent=
-   "Nguồn XAUS | "+points.length+
-   " điểm dữ liệu | Lịch sử theo ngày";
- } catch(e) {
-  document.getElementById("chartStatus").textContent=
-   "Không tải được lịch sử: "+e.message;
-  document.getElementById("confidence").textContent="Chưa đủ dữ liệu";
- }
+    const valid = data.points
+      .map(p => ({date:p.d, value:numberValue(p.c)}))
+      .filter(p => Number.isFinite(p.value));
+
+    if (valid.length < 2) throw new Error("Dữ liệu biểu đồ không hợp lệ");
+
+    if (chart) chart.destroy();
+
+    chart = new Chart($("goldChart"), {
+      type:"line",
+      data:{
+        labels:valid.map(p=>p.date),
+        datasets:[{
+          label:"XAU/USD - USD/oz",
+          data:valid.map(p=>p.value),
+          borderColor:"#f3c75e",
+          backgroundColor:"rgba(243,199,94,.12)",
+          fill:true,
+          tension:.25,
+          borderWidth:2,
+          pointRadius:0
+        }]
+      },
+      options:{
+        responsive:true,
+        maintainAspectRatio:false,
+        interaction:{intersect:false,mode:"index"},
+        plugins:{
+          legend:{labels:{color:"#fff"}}
+        },
+        scales:{
+          x:{ticks:{color:"#9baac0",maxTicksLimit:8},
+             grid:{color:"#263750"}},
+          y:{ticks:{color:"#9baac0"},
+             grid:{color:"#263750"}}
+        }
+      }
+    });
+
+    analyse(valid.map(p=>p.value));
+
+    $("chartStatus").textContent =
+      "Nguồn XAUS | " + valid.length + " điểm dữ liệu lịch sử.";
+    return true;
+
+  } catch(error) {
+    $("chartStatus").textContent =
+      "Không tải được lịch sử: " + error.message;
+    $("confidence").textContent = "Chưa đủ dữ liệu";
+    $("confidenceText").textContent =
+      "Không thể đánh giá do nguồn lịch sử chưa cung cấp dữ liệu.";
+    return false;
+  }
 }
 
 function analyse(values) {
- const recent=values.slice(-7);
- const first=recent[0], last=recent[recent.length-1];
- const change=((last-first)/first)*100;
- const high=Math.max(...values);
- const low=Math.min(...values);
- const range=((high-low)/low)*100;
+  const recent = values.slice(-7);
+  const first = recent[0];
+  const last = recent[recent.length-1];
 
- let trend="Đi ngang";
- let explanation="Giá chưa thể hiện xu hướng rõ ràng.";
+  const change = first !== 0 ? ((last-first)/first)*100 : 0;
+  const high = Math.max(...values);
+  const low = Math.min(...values);
+  const range = low !== 0 ? ((high-low)/low)*100 : 0;
 
- if(change>0.5) {
-  trend="Tăng";
-  explanation="Giá trong nhóm quan sát gần nhất đang tăng.";
- } else if(change< -0.5) {
-  trend="Giảm";
-  explanation="Giá trong nhóm quan sát gần nhất đang giảm.";
- }
+  let trend = "Đi ngang";
+  let explanation = "Chưa thể hiện xu hướng rõ ràng.";
 
- document.getElementById("trend").textContent=trend;
- document.getElementById("trendText").textContent=
-  explanation+" Biến động 7 điểm gần nhất: "+
-  change.toFixed(2)+"%.";
+  if (change > 0.5) {
+    trend = "Tăng";
+    explanation = "Nhóm điểm dữ liệu gần nhất đang tăng.";
+  } else if (change < -0.5) {
+    trend = "Giảm";
+    explanation = "Nhóm điểm dữ liệu gần nhất đang giảm.";
+  }
 
- document.getElementById("volatility").textContent=
-  range.toFixed(2)+"%";
+  $("trend").textContent = trend;
+  $("trendText").textContent =
+    explanation + " Biến động trong 7 điểm gần nhất: " +
+    change.toFixed(2) + "%.";
 
- document.getElementById("confidence").textContent=
-  values.length>=20 ? "Đủ dữ liệu cơ bản" : "Dữ liệu hạn chế";
- document.getElementById("confidenceText").textContent=
-  "Có "+values.length+" điểm lịch sử. "+
-  "Đây không phải xác suất dự báo đúng.";
+  $("volatility").textContent = range.toFixed(2) + "%";
+
+  $("confidence").textContent =
+    values.length >= 20 ? "Dữ liệu khá đầy đủ" : "Dữ liệu hạn chế";
+
+  $("confidenceText").textContent =
+    "Có " + values.length +
+    " điểm dữ liệu. Đây không phải xác suất dự báo đúng.";
 }
 
 async function refreshAll() {
- const status=document.getElementById("connection");
- status.textContent="● Đang cập nhật...";
- let success=0;
+  const button = $("refreshBtn");
+  const status = $("connection");
 
- try { await loadDomestic(); success++; }
- catch(e) {
-  showError("sjc","Không có dữ liệu");
-  showError("ring","Không có dữ liệu");
-  console.error("Domestic API:",e);
- }
+  button.disabled = true;
+  status.textContent = "● Đang cập nhật...";
 
- try { await loadWorld(); success++; }
- catch(e) {
-  showError("world","Không có dữ liệu");
-  console.error("World API:",e);
- }
+  let domesticOK = false;
+  let worldOK = false;
 
- status.textContent=success===2
-  ? "● Đã kết nối các nguồn dữ liệu"
-  : "● Một số nguồn dữ liệu đang lỗi";
+  try {
+    domesticOK = await loadDomestic();
+  } catch(error) {
+    console.error("Lỗi API trong nước:", error);
+  }
 
- document.getElementById("systemInfo").textContent=
-  "Lần kiểm tra: "+new Date().toLocaleString("vi-VN")+
-  ". Số nguồn tải thành công: "+success+"/2.";
+  try {
+    await loadWorld();
+    worldOK = true;
+  } catch(error) {
+    $("world").textContent = "Không có dữ liệu";
+    console.error("Lỗi API thế giới:", error);
+  }
+
+  const count = Number(domesticOK) + Number(worldOK);
+
+  status.textContent =
+    count === 2
+      ? "● Tất cả nguồn chính đã kết nối"
+      : "● Kết nối được " + count + "/2 nguồn";
+
+  $("systemInfo").textContent =
+    "Lần kiểm tra: " + new Date().toLocaleString("vi-VN") +
+    ". Nguồn trong nước: " + (domesticOK ? "OK" : "Lỗi") +
+    ". Nguồn quốc tế: " + (worldOK ? "OK" : "Lỗi") + ".";
+
+  button.disabled = false;
 }
 
 refreshAll();
 loadHistory();
-setInterval(refreshAll,300000);
+setInterval(refreshAll, 300000);
 </script>
 </body>
 </html>
+
+
